@@ -1,17 +1,27 @@
 package com.osf.academyosf.entities;
 
-public class Product {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "products")
+public class Products {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String product_name;
 	private int model_year;
 	private Double list_price;
-	
-	public Product() {
-		
+
+	public Products() {
+
 	}
 
-	public Product(Integer id, String product_name, int model_year, Double list_price) {
+	public Products(Integer id, String product_name, int model_year, Double list_price) {
 		super();
 		this.id = id;
 		this.product_name = product_name;
@@ -50,8 +60,5 @@ public class Product {
 	public void setList_price(Double list_price) {
 		this.list_price = list_price;
 	}
-	
-	
-	
-	
+
 }
