@@ -1,4 +1,4 @@
-package com.osf.academyosf.resouces;
+package com.osf.academyosf.resources;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,7 @@ import com.osf.academyosf.entities.Product;
 
 @RestController
 @RequestMapping(value = "/products")
-public class ProductResouce {
+public class ProductResource {
 
 	@GetMapping
 	public ResponseEntity<Product> prodAll() {
