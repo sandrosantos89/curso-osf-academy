@@ -15,7 +15,7 @@ public class Products implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String product_name;
 	private int model_year;
@@ -26,7 +26,6 @@ public class Products implements Serializable {
 	}
 
 	public Products(Integer id, String product_name, int model_year, Double list_price) {
-		super();
 		this.id = id;
 		this.product_name = product_name;
 		this.model_year = model_year;
