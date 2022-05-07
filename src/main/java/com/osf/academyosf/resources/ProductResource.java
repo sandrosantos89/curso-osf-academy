@@ -5,9 +5,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +35,22 @@ public class ProductResource {
 	}
 
 	@PostMapping("/product")
-	public Products salvaProduct(@RequestBody Products product) {
+	public Products salveProduct(@RequestBody Products product) {
 		return productsRepository.save(product);
-
 	}
 
+	@DeleteMapping("/product") // não possui retorno
+	public void deleteProduct(@RequestBody Products product) {
+		productsRepository.delete(product);
+	}
+
+	@DeleteMapping("/product/{id}") //não possui retorno
+	public Products deleteProductOne(@PathVariable(value = "id") int id ){
+		return productsRepository.deleteById(id);
+	}
+
+	@PutMapping("/product") // não possui retorno
+	public Products updateProduct(@RequestBody Products product) {
+		return productsRepository.save(product);
+	}
 }
