@@ -1,0 +1,1 @@
+insert into products (product_name) value ('Teste');

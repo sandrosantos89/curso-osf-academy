@@ -1,21 +1,25 @@
 package com.osf.academyosf.resources;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.osf.academyosf.entities.Products;
+import com.osf.academyosf.repositories.ProductRepository;
 
 @RestController
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/api")
 public class ProductResource {
 
-	@GetMapping
-	public ResponseEntity<Products> prodAll() {
-		Products p = new Products(1, "Computador", 2022, 2000.00);
-		return ResponseEntity.ok().body(p);
+	@Autowired
+	ProductRepository productsRepository;
 
+	@GetMapping("/produtos")
+	public List<Products> listaProducts() {
+		return productsRepository.findAll();
 	}
 
 }
