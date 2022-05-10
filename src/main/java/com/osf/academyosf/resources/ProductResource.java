@@ -24,12 +24,12 @@ public class ProductResource {
 	@Autowired
 	ProductRepository productsRepository;
 
-	@GetMapping("/products") // Lista todos os produtos
+	@GetMapping("/products") 
 	public List<Products> listaProducts() {
 		return productsRepository.findAll();
 	}
 
-	@GetMapping("/product/{id}") // Lista somente o produto com id
+	@GetMapping("/product/{id}") 
 	public Products listaProductsOne(@PathVariable(value = "id") int id) {
 		return productsRepository.findById(id);
 	}
@@ -39,17 +39,17 @@ public class ProductResource {
 		return productsRepository.save(product);
 	}
 
-	@DeleteMapping("/product") // não possui retorno
+	@DeleteMapping("/product") 
 	public void deleteProduct(@RequestBody Products product) {
 		productsRepository.delete(product);
 	}
 
-	@DeleteMapping("/product/{id}") //não possui retorno
+	@DeleteMapping("/product/{id}")
 	public Products deleteProductOne(@PathVariable(value = "id") int id ){
 		return productsRepository.deleteById(id);
 	}
 
-	@PutMapping("/product") // não possui retorno
+	@PutMapping("/product") 
 	public Products updateProduct(@RequestBody Products product) {
 		return productsRepository.save(product);
 	}
