@@ -1,5 +1,7 @@
 package com.osf.academyosf.entities;
 
-public class Customers {
+public class Customers extends Adress {
+	
+	
 
 }
