@@ -1,12 +1,20 @@
 package com.osf.academyosf.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "products")
@@ -20,6 +28,10 @@ public class Products implements Serializable {
 	private String product_name;
 	private int model_year;
 	private Double list_price;
+
+	@ManyToOne
+	@JsonIgnoreProperties("products_list")
+	private List<Stocks> stocks = new ArrayList<>();
 
 	public Products() {
 
@@ -62,6 +74,10 @@ public class Products implements Serializable {
 
 	public void setList_price(Double list_price) {
 		this.list_price = list_price;
+	}
+
+	public List<Stocks> getStocks() {
+		return stocks;
 	}
 
 }
