@@ -8,20 +8,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.apache.catalina.Store;
 
 import com.osf.academyosf.entities.enums.OrderStatus;
 
 @Entity
-public class Order implements Serializable {
+@Table (name = "tb_orders")
+public class Orders implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer order_id;
 
 	private Date order_date;
 	private Date required_date;
@@ -34,17 +37,17 @@ public class Order implements Serializable {
 	private Customers customers;
 
 	@ManyToOne
-	@JoinColumn(name = "staff_id")
+	@JoinTable(name = "tb_orders_staffs", joinColumns = @JoinColumn(name = "orders_staff_id_fkey"), inverseJoinColumns = @JoinColumn(name = "staffs_id"))
 	private Staffs staffs;
 
 	@ManyToOne
-	@JoinColumn(name = "store_id")
+	@JoinTable(name = "tb_orders_stores", joinColumns = @JoinColumn(name = "orders_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stores_id"))
 	private Stores stores;
 
-	public Order() {
+	public Orders() {
 	}
 
-	public Order(Customers customers, Stores stores) {
+	public Orders(Customers customers, Stores stores) {
 		Integer stock_store = stores.getStock().getId();
 		if (stock_store == null) {
 			throw new IllegalStateException("No stock in store");
@@ -54,25 +57,25 @@ public class Order implements Serializable {
 
 	}
 
-	public Order(Integer id, Date order_date, Date required_date, Date shipped_date, Integer orderStatus,
-			Customers customers, Staffs staff, Store store) {
+	public Orders(Integer order_id, Date order_date, Date required_date, Date shipped_date, Integer orderStatus,
+			Customers customers, Staffs staffs, Stores stores) {
 		super();
-		this.id = id;
+		this.order_id = order_id;
 		this.order_date = order_date;
 		this.required_date = required_date;
 		this.shipped_date = shipped_date;
 		this.orderStatus = orderStatus;
 		this.customers = customers;
-		this.staff = staff;
-		this.store = store;
+		this.staffs = staffs;
+		this.stores = stores;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getOrder_id() {
+		return order_id;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.order_id = id;
 	}
 
 	public Date getOrder_date() {
@@ -115,20 +118,20 @@ public class Order implements Serializable {
 		this.customers = customers;
 	}
 
-	public Staffs getStaff() {
-		return staff;
+	public Staffs getStaffs() {
+		return staffs;
 	}
 
-	public void setStaff(Staffs staff) {
-		this.staff = staff;
+	public void setStaffs(Staffs staff) {
+		this.staffs = staff;
 	}
 
-	public Store getStore() {
-		return store;
+	public Stores getStores() {
+		return stores;
 	}
 
-	public void setStore(Store store) {
-		this.store = store;
+	public void setStores(Stores stores) {
+		this.stores = stores;
 	}
 
 }

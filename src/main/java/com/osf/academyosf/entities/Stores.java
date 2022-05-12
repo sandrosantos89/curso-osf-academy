@@ -3,18 +3,36 @@ package com.osf.academyosf.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "tb_stores")
 public class Stores extends Adress {
 
 	private Integer store_id;
 	private String store_name;
 
-	@OneToMany(mappedBy = "stores")
-	private List<Order> orders = new ArrayList<>();
+	@ManyToOne()
+	@JoinTable(name = "tb_stocks_store", joinColumns = @JoinColumn(name = "stocks_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stock_id"))
+	private Stocks stocks;
 
 	@OneToMany
-	private Staffs staffs;
+	@JsonIgnore
+	private List<Products> product_list;
+
+	@OneToMany(mappedBy = "stores")
+	private List<Orders> orders_list = new ArrayList<>();
+
+	@OneToMany
+	@JsonIgnore
+	private List<Staffs> staffs_list;
 
 	public Stores() {
 
@@ -28,20 +46,27 @@ public class Stores extends Adress {
 		this.store_id = store_id;
 	}
 
-	public String getStore_name() {
-		return store_name;
-	}
-
 	public void setStore_name(String store_name) {
 		this.store_name = store_name;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public String getStore_name() {
+		return store_name;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public Stocks getStocks() {
+		return stocks;
 	}
 
+	public void setStocks(Stocks stocks) {
+		this.stocks = stocks;
+	}
+
+	public List<Staffs> getStaffs_list() {
+		return staffs_list;
+	}
+
+	public List<Orders> getOrders() {
+		return orders_list;
+	}
 }

@@ -2,8 +2,6 @@ package com.osf.academyosf.resources;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,38 +17,38 @@ import com.osf.academyosf.repositories.ProductRepository;
 
 @RestController
 @RequestMapping(value = "/api")
-public class ProductResource {
+public class ProductsResource {
 
 	@Autowired
-	ProductRepository productsRepository;
+	ProductRepository products_repository;
 
 	@GetMapping("/products") 
 	public List<Products> listaProducts() {
-		return productsRepository.findAll();
+		return products_repository.findAll();
 	}
 
 	@GetMapping("/product/{id}") 
 	public Products listaProductsOne(@PathVariable(value = "id") int id) {
-		return productsRepository.findById(id);
+		return products_repository.findById(id);
 	}
 
 	@PostMapping("/product")
 	public Products salveProduct(@RequestBody Products product) {
-		return productsRepository.save(product);
+		return products_repository.save(product);
 	}
 
 	@DeleteMapping("/product") 
 	public void deleteProduct(@RequestBody Products product) {
-		productsRepository.delete(product);
+		products_repository.delete(product);
 	}
 
 	@DeleteMapping("/product/{id}")
 	public Products deleteProductOne(@PathVariable(value = "id") int id ){
-		return productsRepository.deleteById(id);
+		return products_repository.deleteById(id);
 	}
 
 	@PutMapping("/product") 
 	public Products updateProduct(@RequestBody Products product) {
-		return productsRepository.save(product);
+		return products_repository.save(product);
 	}
 }

@@ -1,9 +1,7 @@
 package com.osf.academyosf.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,29 +10,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table( name = "staff")
-public class Staffs{
+@Table(name = "tb_staff")
+public class Staffs {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer staff_id;
-	
-	@Column(name = "first_name", nullable = false)
+
 	private String first_name;
-	
-	@Column(name = "last_name", nullable = false)
 	private String last_name;
-	
-	@Column(name = "email", nullable= false)
 	private String email;
-	
 	private String phone;
 	private Integer active;
 	private boolean manager;
 
-	@OneToMany(mappedBy = "staff")
-	private List<Order> orders = new ArrayList<>();
+	@OneToMany(mappedBy = "staffs")
+	@JsonIgnore
+	private List<Orders> orders;
 
 	@ManyToOne
 	private Stores stores;
@@ -99,7 +94,7 @@ public class Staffs{
 		this.manager = manager;
 	}
 
-	public List<Order> getOrders() {
+	public List<Orders> getOrders() {
 		return orders;
 	}
 
@@ -110,7 +105,5 @@ public class Staffs{
 	public void setStores(Stores stores) {
 		this.stores = stores;
 	}
-	
-	
 
 }

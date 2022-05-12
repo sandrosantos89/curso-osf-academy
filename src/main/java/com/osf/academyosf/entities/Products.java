@@ -1,55 +1,59 @@
 package com.osf.academyosf.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "products")
+@Table(name = "tb_products")
 public class Products implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer product_id;
 	private String product_name;
 	private int model_year;
 	private Double list_price;
 
 	@ManyToOne
-	@JsonIgnoreProperties("products_list")
-	private List<Stocks> stocks = new ArrayList<>();
+	@JoinTable(name = "tb_products_brands", joinColumns = @JoinColumn(name = "products_brand_id_fkey"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
+	private Brands brands;
+
+	@ManyToOne
+	@JoinTable(name = "tb_products_category", joinColumns = @JoinColumn(name = "products_category_id_fkey"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private Categories categories;
+
+	@OneToMany(mappedBy = "products")
+	private List<Stocks> stocks_list;
 
 	public Products() {
 
 	}
 
-	public Products(Integer id, String product_name, int model_year, Double list_price) {
-		this.id = id;
+	public Products(Integer product_id, String product_name, int model_year, Double list_price) {
+		this.product_id = product_id;
 		this.product_name = product_name;
 		this.model_year = model_year;
 		this.list_price = list_price;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getProduct_id() {
+		return product_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer product_id) {
+		this.product_id = product_id;
 	}
 
 	public String getProduct_name() {
@@ -76,8 +80,24 @@ public class Products implements Serializable {
 		this.list_price = list_price;
 	}
 
-	public List<Stocks> getStocks() {
-		return stocks;
+	public Brands getBrands() {
+		return brands;
+	}
+
+	public void setBrands(Brands brands) {
+		this.brands = brands;
+	}
+
+	public Categories getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Categories categories) {
+		this.categories = categories;
+	}
+
+	public List<Stocks> getStocks_list() {
+		return stocks_list;
 	}
 
 }
