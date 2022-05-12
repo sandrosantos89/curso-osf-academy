@@ -1,7 +1,5 @@
 package com.osf.academyosf.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -28,10 +25,19 @@ public class Stocks {
 	@JoinTable(name = "tb_stocks_products", joinColumns = @JoinColumn(name = "stocks_products_id_fkey"), inverseJoinColumns = @JoinColumn(name = "products_id"))
 	private Products products;
 
-	@OneToMany(mappedBy = "stocks")
-	private List<Stores> stores_list;
+	@ManyToOne
+	@JoinTable(name = "tb_stocks_store", joinColumns = @JoinColumn(name = "stocks_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stores_id"))
+	private Stores stores;
 
 	public Stocks() {
+	}
+
+	public Stocks(Integer stocks_id, Integer quantity, Products products, Stores stores) {
+		super();
+		this.stocks_id = stocks_id;
+		this.quantity = quantity;
+		this.products = products;
+		this.stores = stores;
 	}
 
 	public static Products check_product() {
@@ -58,16 +64,20 @@ public class Stocks {
 		this.quantity = quantity;
 	}
 
-	public List<Stores> getStores_list() {
-		return stores_list;
-	}
-
 	public Products getProducts() {
 		return products;
 	}
 
 	public void setProducts(Products products) {
 		this.products = products;
+	}
+
+	public Stores getStores() {
+		return stores;
+	}
+
+	public void setStores(Stores stores) {
+		this.stores = stores;
 	}
 
 }

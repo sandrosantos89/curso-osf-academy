@@ -22,7 +22,7 @@ public class Customers extends Adress {
 	private String first_name;
 	private String last_name;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "customers")
 	@JsonIgnore
 	private List<Orders> orders;
 

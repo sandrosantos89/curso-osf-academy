@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,12 +16,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tb_stores")
 public class Stores extends Adress {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer store_id;
 	private String store_name;
 
-	@ManyToOne()
-	@JoinTable(name = "tb_stocks_store", joinColumns = @JoinColumn(name = "stocks_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stock_id"))
-	private Stocks stocks;
+	@OneToMany(mappedBy = "stores")
+	private List<Stocks> stocks_list;
 
 	@OneToMany
 	@JsonIgnore
@@ -36,6 +37,17 @@ public class Stores extends Adress {
 
 	public Stores() {
 
+	}
+
+	public Stores(Integer store_id, String store_name, List<Stocks> stocks_list, List<Products> product_list,
+			List<Orders> orders_list, List<Staffs> staffs_list) {
+		super();
+		this.store_id = store_id;
+		this.store_name = store_name;
+		this.stocks_list = stocks_list;
+		this.product_list = product_list;
+		this.orders_list = orders_list;
+		this.staffs_list = staffs_list;
 	}
 
 	public Integer getStore_id() {
@@ -54,14 +66,6 @@ public class Stores extends Adress {
 		return store_name;
 	}
 
-	public Stocks getStocks() {
-		return stocks;
-	}
-
-	public void setStocks(Stocks stocks) {
-		this.stocks = stocks;
-	}
-
 	public List<Staffs> getStaffs_list() {
 		return staffs_list;
 	}
@@ -69,4 +73,9 @@ public class Stores extends Adress {
 	public List<Orders> getOrders() {
 		return orders_list;
 	}
+
+	public List<Stocks> getStocks_list() {
+		return stocks_list;
+	}
+
 }

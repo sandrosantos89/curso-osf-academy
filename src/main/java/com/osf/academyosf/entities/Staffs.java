@@ -38,6 +38,20 @@ public class Staffs {
 
 	}
 
+	public Staffs(Integer staff_id, String first_name, String last_name, String email, String phone, Integer active,
+			boolean manager, List<Orders> orders, Stores stores) {
+		super();
+		this.staff_id = staff_id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.phone = phone;
+		this.active = active;
+		this.manager = manager;
+		this.orders = orders;
+		this.stores = stores;
+	}
+
 	public Integer getStaff_id() {
 		return staff_id;
 	}
