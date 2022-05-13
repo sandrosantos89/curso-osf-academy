@@ -13,42 +13,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.osf.academyosf.entities.Products;
-import com.osf.academyosf.repositories.ProductRepository;
+import com.osf.academyosf.repositories.ProductsRepository;
 
 @RestController
 @RequestMapping(value = "/api")
 public class ProductsResource {
 
 	@Autowired
-	ProductRepository products_repository;
+	ProductsRepository products_repository;
 
 	@GetMapping("/products") 
-	public List<Products> listaProducts() {
+	public List<Products> lista_products() {
 		return products_repository.findAll();
 	}
 
 	@GetMapping("/product/{id}") 
-	public Products listaProductsOne(@PathVariable(value = "id") int id) {
+	public Products lista_products_one(@PathVariable(value = "id") int id) {
 		return products_repository.findById(id);
 	}
 
 	@PostMapping("/product")
-	public Products salveProduct(@RequestBody Products product) {
+	public Products salve_product(@RequestBody Products product) {
 		return products_repository.save(product);
 	}
 
 	@DeleteMapping("/product") 
-	public void deleteProduct(@RequestBody Products product) {
+	public void delete_product(@RequestBody Products product) {
 		products_repository.delete(product);
 	}
 
 	@DeleteMapping("/product/{id}")
-	public Products deleteProductOne(@PathVariable(value = "id") int id ){
+	public Products delete_product_one(@PathVariable(value = "id") int id ){
 		return products_repository.deleteById(id);
 	}
 
 	@PutMapping("/product") 
-	public Products updateProduct(@RequestBody Products product) {
+	public Products update_product(@RequestBody Products product) {
 		return products_repository.save(product);
 	}
 }

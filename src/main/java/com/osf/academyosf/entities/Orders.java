@@ -2,6 +2,8 @@ package com.osf.academyosf.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.osf.academyosf.entities.enums.OrderStatus;
 
 @Entity
@@ -24,8 +28,13 @@ public class Orders implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer order_id;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Date order_date;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Date required_date;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Date shipped_date;
 
 	private Integer orderStatus;
@@ -41,6 +50,9 @@ public class Orders implements Serializable {
 	@ManyToOne
 	@JoinTable(name = "tb_orders_stores", joinColumns = @JoinColumn(name = "orders_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stores_id"))
 	private Stores stores;
+
+	@OneToMany(mappedBy = "id_order")
+	private Set<OrderItems> items = new HashSet<>();
 
 	public Orders() {
 	}
@@ -122,6 +134,10 @@ public class Orders implements Serializable {
 
 	public void setStores(Stores stores) {
 		this.stores = stores;
+	}
+
+	public Set<OrderItems> getItems() {
+		return items;
 	}
 
 }

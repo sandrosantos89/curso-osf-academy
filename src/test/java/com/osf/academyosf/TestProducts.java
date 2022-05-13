@@ -10,14 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.osf.academyosf.entities.Products;
-import com.osf.academyosf.repositories.ProductRepository;
+import com.osf.academyosf.repositories.ProductsRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestProducts {
 
 	@Autowired
-	ProductRepository product_repository;
+	ProductsRepository product_repository;
 	
 	@org.junit.jupiter.api.Test
 	
