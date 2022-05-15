@@ -12,43 +12,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.osf.academyosf.entities.Stocks;
-import com.osf.academyosf.repositories.StocksRepository;
+import com.osf.academyosf.entities.Stores;
+import com.osf.academyosf.repositories.StoresRepository;
 
 @RestController
 @RequestMapping(value = "/api")
 public class StoresResource {
 
 	@Autowired
-	StocksRepository stocks_repository;
+	private StoresRepository stores_repository;
 
-	@GetMapping("/stocks") 
-	public List<Stocks> lista_stocks() {
-		return stocks_repository.findAll();
+	@GetMapping("/stores") 
+	public List<Stores> lista_stores() {
+		return stores_repository.findAll();
 	}
 
-	@GetMapping("/stocks/{id}") 
-	public Stocks lista_stocks_one(@PathVariable(value = "id") int id) {
-		return stocks_repository.findById(id);
+	@GetMapping("/stores/{id}") 
+	public Stores lista_stores_one(@PathVariable(value = "id") int id) {
+		return stores_repository.findById(id);
 	}
 
-	@PostMapping("/stocks")
-	public Stocks salve_stocks(@RequestBody Stocks stocks) {
-		return stocks_repository.save(stocks);
+	@PostMapping("/stores")
+	public Stores salve_stores(@RequestBody Stores stores) {
+		return stores_repository.save(stores);
 	}
 
-	@DeleteMapping("/stocks") 
-	public void delete_stocks(@RequestBody Stocks stocks) {
-		stocks_repository.delete(stocks);
+	@DeleteMapping("/stores") 
+	public void delete_stores(@RequestBody Stores stores) {
+		stores_repository.delete(stores);
 	}
 
-	@DeleteMapping("/stocks/{id}")
-	public Stocks delete_stocks_one(@PathVariable(value = "id") int id ){
-		return stocks_repository.deleteById(id);
+	@DeleteMapping("/stores/{id}")
+	public Stores delete_stores_one(@PathVariable(value = "id") int id ){
+		return stores_repository.deleteById(id);
 	}
 
-	@PutMapping("/stocks") 
-	public Stocks update_stocks(@RequestBody Stocks stocks) {
-		return stocks_repository.save(stocks);
+	@PutMapping("/stores") 
+	public Stores update_stores(@RequestBody Stores stores) {
+		return stores_repository.save(stores);
 	}
 }

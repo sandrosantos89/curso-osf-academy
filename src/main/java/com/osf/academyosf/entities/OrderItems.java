@@ -75,8 +75,11 @@ public class OrderItems implements Serializable {
 	}
 
 	public void saveAll(List<OrderItems> asList) {
-		// TODO Auto-generated method stub
-		
+				
+	}
+	
+	public Double getSubTotal() {
+		return quantity * list_price;
 	}
 
 }

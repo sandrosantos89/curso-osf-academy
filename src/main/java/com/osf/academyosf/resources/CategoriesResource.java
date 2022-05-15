@@ -20,7 +20,7 @@ import com.osf.academyosf.repositories.CategoriesRepository;
 public class CategoriesResource {
 
 	@Autowired
-	CategoriesRepository categories_repository;
+	private CategoriesRepository categories_repository;
 
 	@GetMapping("/categories")
 	public List<Categories> list_categories() {

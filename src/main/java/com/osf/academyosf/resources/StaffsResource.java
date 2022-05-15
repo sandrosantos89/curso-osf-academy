@@ -20,7 +20,7 @@ import com.osf.academyosf.repositories.StaffsRepository;
 public class StaffsResource {
 
 	@Autowired
-	StaffsRepository staffs_repository;
+	private StaffsRepository staffs_repository;
 
 	@GetMapping("/staffs") 
 	public List<Staffs> lista_staffs() {

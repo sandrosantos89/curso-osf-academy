@@ -52,16 +52,17 @@ public class Stocks {
 		return stocks_id;
 	}
 
-	public void setStocks_id(Integer stocks_id) {
-		this.stocks_id = stocks_id;
-	}
-
 	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setQuantity(Integer quantity, Staffs staff) {
+		Staffs st = new Staffs();
+		if (st.isManager() == true) {
+			this.quantity = quantity;
+		} else {
+			System.out.println("You are not authorized to update stock");
+		}
 	}
 
 	public Products getProducts() {
@@ -79,5 +80,6 @@ public class Stocks {
 	public void setStores(Stores stores) {
 		this.stores = stores;
 	}
+	
 
 }

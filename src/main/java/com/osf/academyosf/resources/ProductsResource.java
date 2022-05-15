@@ -20,11 +20,16 @@ import com.osf.academyosf.repositories.ProductsRepository;
 public class ProductsResource {
 
 	@Autowired
-	ProductsRepository products_repository;
+	private ProductsRepository products_repository;
 
 	@GetMapping("/products") 
 	public List<Products> lista_products() {
 		return products_repository.findAll();
+	}
+	
+	@GetMapping("/products/count") 
+	public long lista_count_products() {
+		return products_repository.count();
 	}
 
 	@GetMapping("/product/{id}") 

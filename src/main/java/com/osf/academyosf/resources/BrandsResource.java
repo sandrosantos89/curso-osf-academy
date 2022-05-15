@@ -20,7 +20,7 @@ import com.osf.academyosf.repositories.BrandsRepository;
 public class BrandsResource {
 
 	@Autowired
-	BrandsRepository brands_repository;
+	private BrandsRepository brands_repository;
 
 	@GetMapping("/brands")
 	public List<Brands> list_brands() {

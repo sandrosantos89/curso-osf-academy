@@ -1,7 +1,7 @@
 package com.osf.academyosf.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.osf.academyosf.entities.enums.OrderStatus;
 
 @Entity
@@ -29,13 +30,13 @@ public class Orders implements Serializable {
 	private Integer order_id;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Date order_date;
+	private Instant order_date;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Date required_date;
+	private Instant required_date;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Date shipped_date;
+	private Instant shipped_date;
 
 	private Integer orderStatus;
 
@@ -51,15 +52,15 @@ public class Orders implements Serializable {
 	@JoinTable(name = "tb_orders_stores", joinColumns = @JoinColumn(name = "orders_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stores_id"))
 	private Stores stores;
 
-	@OneToMany(mappedBy = "id_order")
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItems> items = new HashSet<>();
 
 	public Orders() {
 	}
 
-	public Orders(Integer order_id, Date order_date, Date required_date, Date shipped_date, OrderStatus orderStatus,
-			Customers customers, Staffs staffs, Stores stores) {
-		super();
+	public Orders(Integer order_id, Instant order_date, Instant required_date, Instant shipped_date,
+			OrderStatus orderStatus, Customers customers, Staffs staffs, Stores stores) {
 		this.order_id = order_id;
 		this.order_date = order_date;
 		this.required_date = required_date;
@@ -78,27 +79,27 @@ public class Orders implements Serializable {
 		this.order_id = id;
 	}
 
-	public Date getOrder_date() {
+	public Instant getOrder_date() {
 		return order_date;
 	}
 
-	public void setOrder_date(Date order_date) {
+	public void setOrder_date(Instant order_date) {
 		this.order_date = order_date;
 	}
 
-	public Date getRequired_date() {
+	public Instant getRequired_date() {
 		return required_date;
 	}
 
-	public void setRequired_date(Date required_date) {
+	public void setRequired_date(Instant required_date) {
 		this.required_date = required_date;
 	}
 
-	public Date getShipped_date() {
+	public Instant getShipped_date() {
 		return shipped_date;
 	}
 
-	public void setShipped_date(Date shipped_date) {
+	public void setShipped_date(Instant shipped_date) {
 		this.shipped_date = shipped_date;
 	}
 
@@ -138,6 +139,14 @@ public class Orders implements Serializable {
 
 	public Set<OrderItems> getItems() {
 		return items;
+	}
+
+	public Double getTotal() {
+		double sum = 0;
+		for (OrderItems x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
 	}
 
 }

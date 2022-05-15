@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.osf.academyosf.entities.Customers;
 import com.osf.academyosf.entities.Orders;
+import com.osf.academyosf.repositories.CustomersRepository;
 import com.osf.academyosf.repositories.OrdersRepository;
 
 @RestController
@@ -20,12 +22,21 @@ import com.osf.academyosf.repositories.OrdersRepository;
 public class OrdersResource {
 
 	@Autowired
-	OrdersRepository orders_repository;
+	private OrdersRepository orders_repository;
+	
+	@Autowired
+	private CustomersRepository customer_repository;
 
 	@GetMapping("/orders")
 	public List<Orders> list_orders() {
 		return orders_repository.findAll();
 	}
+	
+	@GetMapping("/orders/customers")
+	public List<Customers> list_customers() {
+		return customer_repository.findAll();
+	}
+	
 
 	@GetMapping("/orders/{id}")
 	public Orders list_orders_one(@PathVariable(value = "id") int id) {

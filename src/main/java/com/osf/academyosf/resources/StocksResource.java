@@ -20,14 +20,14 @@ import com.osf.academyosf.repositories.StocksRepository;
 public class StocksResource {
 
 	@Autowired
-	StocksRepository stocks_repository;
+	private StocksRepository stocks_repository;
 
-	@GetMapping("/stocks") 
+	@GetMapping("/stocks")
 	public List<Stocks> lista_stocks() {
 		return stocks_repository.findAll();
 	}
 
-	@GetMapping("/stocks/{id}") 
+	@GetMapping("/stocks/{id}")
 	public Stocks lista_stocks_one(@PathVariable(value = "id") int id) {
 		return stocks_repository.findById(id);
 	}
@@ -37,18 +37,19 @@ public class StocksResource {
 		return stocks_repository.save(stocks);
 	}
 
-	@DeleteMapping("/stocks") 
+	@DeleteMapping("/stocks")
 	public void delete_stocks(@RequestBody Stocks stocks) {
 		stocks_repository.delete(stocks);
 	}
 
 	@DeleteMapping("/stocks/{id}")
-	public Stocks delete_stocks_one(@PathVariable(value = "id") int id ){
+	public Stocks delete_stocks_one(@PathVariable(value = "id") int id) {
 		return stocks_repository.deleteById(id);
 	}
 
-	@PutMapping("/stocks") 
+	@PutMapping("/stocks")
 	public Stocks update_stocks(@RequestBody Stocks stocks) {
 		return stocks_repository.save(stocks);
 	}
+
 }
