@@ -24,7 +24,7 @@ public class Staffs {
 	private String last_name;
 	private String email;
 	private String phone;
-	private Integer active;
+	private boolean active;
 	private boolean manager;
 
 	@OneToMany(mappedBy = "staffs")
@@ -38,8 +38,8 @@ public class Staffs {
 
 	}
 
-	public Staffs(Integer staff_id, String first_name, String last_name, String email, String phone, Integer active,
-			boolean manager, List<Orders> orders, Stores stores) {
+	public Staffs(Integer staff_id, String first_name, String last_name, String email, String phone, boolean active,
+			boolean manager) {
 		super();
 		this.staff_id = staff_id;
 		this.first_name = first_name;
@@ -48,8 +48,7 @@ public class Staffs {
 		this.phone = phone;
 		this.active = active;
 		this.manager = manager;
-		this.orders = orders;
-		this.stores = stores;
+
 	}
 
 	public Integer getStaff_id() {
@@ -92,11 +91,11 @@ public class Staffs {
 		this.phone = phone;
 	}
 
-	public Integer getActive() {
+	public boolean getActive() {
 		return active;
 	}
 
-	public void setActive(Integer active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -110,14 +109,6 @@ public class Staffs {
 
 	public List<Orders> getOrders() {
 		return orders;
-	}
-
-	public Stores getStores() {
-		return stores;
-	}
-
-	public void setStores(Stores stores) {
-		this.stores = stores;
 	}
 
 }

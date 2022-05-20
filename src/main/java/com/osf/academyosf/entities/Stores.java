@@ -40,13 +40,12 @@ public class Stores extends Adress {
 	}
 
 	public Stores(Integer store_id, String store_name, List<Stocks> stocks_list, List<Products> product_list,
-			List<Orders> orders_list, List<Staffs> staffs_list) {
+			List<Staffs> staffs_list) {
 		super();
 		this.store_id = store_id;
 		this.store_name = store_name;
 		this.stocks_list = stocks_list;
 		this.product_list = product_list;
-		this.orders_list = orders_list;
 		this.staffs_list = staffs_list;
 	}
 
@@ -68,10 +67,6 @@ public class Stores extends Adress {
 
 	public List<Staffs> getStaffs_list() {
 		return staffs_list;
-	}
-
-	public List<Orders> getOrders() {
-		return orders_list;
 	}
 
 	public List<Stocks> getStocks_list() {

@@ -14,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.osf.academyosf.entities.enums.OrderStatus;
@@ -59,16 +58,16 @@ public class Orders implements Serializable {
 	public Orders() {
 	}
 
-	public Orders(Integer order_id, Instant order_date, Instant required_date, Instant shipped_date,
-			OrderStatus orderStatus, Customers customers, Staffs staffs, Stores stores) {
+	public Orders(Integer order_id, Customers customers, OrderStatus orderStatus, Instant order_date,
+			Instant required_date, Instant shipped_date, Staffs staffs, Stores stores) {
 		this.order_id = order_id;
+		this.customers = customers;
+		setOrderStatus(orderStatus);
 		this.order_date = order_date;
 		this.required_date = required_date;
 		this.shipped_date = shipped_date;
-		setOrderStatus(orderStatus);
-		this.customers = customers;
-		this.staffs = staffs;
 		this.stores = stores;
+		this.staffs = staffs;
 	}
 
 	public Integer getOrder_id() {
@@ -144,7 +143,7 @@ public class Orders implements Serializable {
 	public Double getTotal() {
 		double sum = 0;
 		for (OrderItems x : items) {
-			sum += x.getSubTotal();
+			sum += x.getQuantity();
 		}
 		return sum;
 	}

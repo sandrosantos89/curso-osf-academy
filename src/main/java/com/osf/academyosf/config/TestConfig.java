@@ -8,14 +8,25 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.osf.academyosf.entities.Brands;
 import com.osf.academyosf.entities.Categories;
+import com.osf.academyosf.entities.Customers;
 import com.osf.academyosf.entities.OrderItems;
 import com.osf.academyosf.entities.Orders;
 import com.osf.academyosf.entities.Products;
+import com.osf.academyosf.entities.Staffs;
+import com.osf.academyosf.entities.Stocks;
+import com.osf.academyosf.entities.Stores;
 import com.osf.academyosf.entities.enums.OrderStatus;
+import com.osf.academyosf.repositories.BrandsRepository;
 import com.osf.academyosf.repositories.CategoriesRepository;
+import com.osf.academyosf.repositories.CustomersRepository;
+import com.osf.academyosf.repositories.OrderItemsRepository;
 import com.osf.academyosf.repositories.OrdersRepository;
 import com.osf.academyosf.repositories.ProductsRepository;
+import com.osf.academyosf.repositories.StaffsRepository;
+import com.osf.academyosf.repositories.StocksRepository;
+import com.osf.academyosf.repositories.StoresRepository;
 
 @Configuration
 @Profile("test")
@@ -25,35 +36,61 @@ public class TestConfig implements CommandLineRunner {
 	private ProductsRepository product_repository;
 
 	@Autowired
+	private StocksRepository stocks_repository;
+
+	@Autowired
+	private StoresRepository stores_repository;
+
+	@Autowired
+	private StaffsRepository staffs_repository;
+
+	@Autowired
+	private OrderItemsRepository order_item_repository;
+
+	@Autowired
 	private OrdersRepository order_repository;
 
-//	@Autowired
-//	private OrderItems order_item_repository;
+	@Autowired
+	private CustomersRepository customer_repository;
 
 	@Autowired
 	private CategoriesRepository categories_repository;
 
+	@Autowired
+	private BrandsRepository brands_repository;
+
 	@Override
 	public void run(String... args) throws Exception {
 
-		Categories cat1 = new Categories(null, "social");
-		Categories cat2 = new Categories(null, "usual");
+		Categories cat1 = new Categories(null, "corrida");
 
-		Products p1 = new Products(null, "sapato", 2019, 100.00);
-		Products p2 = new Products(null, "camisa", 2022, 200.00);
+		Brands bd1 = new Brands(null, "Nike");
 
-//		OrderItems oi1 = new OrderItems(null, p1, 1, 100.00, 0.10);
-//		OrderItems oi2 = new OrderItems(null, p2, 2, 200.00, 0.10);
+		Products p1 = new Products(null, bd1, cat1, "tennis", 2022, 150.00);
 
-		Orders od1 = new Orders(null, Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"),
-				Instant.parse("2022-05-13T19:03:20Z"), OrderStatus.Awaiting_shipment, null, null, null);
-		Orders od2 = new Orders(null, Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"),
-				Instant.parse("2022-05-13T19:03:20Z"), OrderStatus.In_transit, null, null, null);
+		Stocks stk1 = new Stocks(null, 1, p1);
 
-		categories_repository.saveAll(Arrays.asList(cat1, cat2));
-		product_repository.saveAll(Arrays.asList(p1, p2));
-//		order_item_repository.saveAll(Arrays.asList(oi1, oi2));
-		order_repository.saveAll(Arrays.asList(od1, od2));
+		Staffs stf1 = new Staffs(null, "santos", "sandro", "teste3@teste3.com", "12345-6789", true, true);
+
+		Stores st1 = new Stores(null, "Loja1", Arrays.asList(stk1), Arrays.asList(p1), Arrays.asList(stf1));
+
+		Customers ct1 = new Customers("Sandro", "Santos", "1234-5678", "teste@teste.com", "Rua teste", "São Paulo",
+				"SP", "12345-678");
+
+		Orders od1 = new Orders(null, ct1, OrderStatus.Awaiting_shipment, Instant.parse("2022-05-13T19:03:20Z"),
+				Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"), stf1, st1);
+
+		OrderItems oi1 = new OrderItems(od1, p1, 1, 100.00, 0.10);
+
+		categories_repository.saveAll(Arrays.asList(cat1));
+		brands_repository.saveAll(Arrays.asList(bd1));
+		product_repository.saveAll(Arrays.asList(p1));
+		stocks_repository.saveAll(Arrays.asList(stk1));
+		staffs_repository.saveAll(Arrays.asList(stf1));
+		stores_repository.saveAll(Arrays.asList(st1));
+		customer_repository.saveAll(Arrays.asList(ct1));
+		order_repository.saveAll(Arrays.asList(od1));
+		order_item_repository.saveAll(Arrays.asList(oi1));
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.osf.academyosf.entities.enums.OrderStatus;
+
 @Entity
 @Table(name = "tb_stocks")
 public class Stocks {
@@ -32,12 +34,16 @@ public class Stocks {
 	public Stocks() {
 	}
 
-	public Stocks(Integer stocks_id, Integer quantity, Products products, Stores stores) {
+	public Stocks(Integer stocks_id, Integer quantity, Products products) {
 		super();
 		this.stocks_id = stocks_id;
 		this.quantity = quantity;
 		this.products = products;
-		this.stores = stores;
+
+	}
+
+	public void addQtdeStocks(int qtde) {
+		this.quantity += qtde;
 	}
 
 	public static Products check_product() {
@@ -48,6 +54,28 @@ public class Stocks {
 		return prod;
 	}
 
+	public void returnStocks(Orders order, OrderStatus orderStatus, Integer qtde) {
+		Orders od = new Orders();
+		if (od.getOrderStatus() == OrderStatus.Canceled) {
+			this.quantity += qtde;
+		} else {
+			this.quantity -= qtde;
+		}
+	}
+
+	public int getQtdeStocks(int qtde) {
+		return this.quantity;
+	}
+
+	public void setQuantity(Integer quantity, Staffs staff) {
+		Staffs st = new Staffs();
+		if (st.isManager() == true) {
+			this.quantity = quantity;
+		} else {
+			throw new IllegalArgumentException("You are not authorized to update stock");
+		}
+	}
+
 	public Integer getStocks_id() {
 		return stocks_id;
 	}
@@ -56,13 +84,8 @@ public class Stocks {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity, Staffs staff) {
-		Staffs st = new Staffs();
-		if (st.isManager() == true) {
-			this.quantity = quantity;
-		} else {
-			System.out.println("You are not authorized to update stock");
-		}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Products getProducts() {
@@ -72,14 +95,5 @@ public class Stocks {
 	public void setProducts(Products products) {
 		this.products = products;
 	}
-
-	public Stores getStores() {
-		return stores;
-	}
-
-	public void setStores(Stores stores) {
-		this.stores = stores;
-	}
-	
 
 }
