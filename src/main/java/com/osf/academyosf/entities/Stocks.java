@@ -68,8 +68,8 @@ public class Stocks {
 	}
 
 	public void setQuantity(Integer quantity, Staffs staff) {
-		Staffs st = new Staffs();
-		if (st.isManager() == true) {
+		Staffs stf = new Staffs();
+		if (stf.isManager() == true) {
 			this.quantity = quantity;
 		} else {
 			throw new IllegalArgumentException("You are not authorized to update stock");

@@ -91,7 +91,7 @@ public class Staffs {
 		this.phone = phone;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return active;
 	}
 

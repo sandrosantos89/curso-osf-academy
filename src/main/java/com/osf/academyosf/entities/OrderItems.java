@@ -3,51 +3,73 @@ package com.osf.academyosf.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.osf.academyosf.entities.pk.OrderItemPk;
-
 @Entity
-@Table(name = "tb_oder_items")
+@Table(name = "tb_order_items")
 public class OrderItems implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private OrderItemPk id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	private Integer quantity;
 	private Double list_price;
 	private Double discount;
+
+	@ManyToOne
+	@JoinTable(name = "tb_order_items_orders", joinColumns = @JoinColumn(name = "order_items_orders_id_fkey"), inverseJoinColumns = @JoinColumn(name = "orders"))
+	private Orders orders;
+
+	@ManyToOne
+	@JoinTable(name = "tb_order_items_products", joinColumns = @JoinColumn(name = "order_items_products_id_fkey"), inverseJoinColumns = @JoinColumn(name = "products"))
+	private Products products;
+
+	public Orders getOrder() {
+		return orders;
+	}
 
 	public OrderItems() {
 	}
 
 	public OrderItems(Orders orders, Products product, Integer quantity, Double list_price, Double discount) {
 		super();
-		id.setOrder(orders);
-		id.setProducts(product);
+		this.orders = orders;
+		this.products = product;
 		this.quantity = quantity;
 		this.list_price = list_price;
 		this.discount = discount;
 	}
 
-	public Orders getOrders() {
-		return id.getOrder();
-	}
-
-	public void setOrders(Orders orders) {
-		id.setOrder(orders);
+	@OneToMany
+	public void setOrder(Orders orders) {
+		this.orders = orders;
 	}
 
 	public Products getProducts() {
-		return id.getProducts();
+		return products;
 	}
 
 	public void setProducts(Products products) {
-		id.setProducts(products);
+		this.products = products;
+	}
+
+	public Orders getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Orders orders) {
+		this.orders = orders;
 	}
 
 	public Integer getQuantity() {
@@ -75,9 +97,9 @@ public class OrderItems implements Serializable {
 	}
 
 	public void saveAll(List<OrderItems> asList) {
-				
+
 	}
-	
+
 	public Double getSubTotal() {
 		return quantity * list_price;
 	}

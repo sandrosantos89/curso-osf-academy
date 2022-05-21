@@ -63,33 +63,33 @@ public class TestConfig implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		Categories cat1 = new Categories(null, "corrida");
+		categories_repository.saveAll(Arrays.asList(cat1));
 
 		Brands bd1 = new Brands(null, "Nike");
+		brands_repository.saveAll(Arrays.asList(bd1));
 
 		Products p1 = new Products(null, bd1, cat1, "tennis", 2022, 150.00);
+		product_repository.saveAll(Arrays.asList(p1));
 
-		Stocks stk1 = new Stocks(null, 1, p1);
+		Stocks stk1 = new Stocks(null, 10, p1);
+		stocks_repository.saveAll(Arrays.asList(stk1));
 
-		Staffs stf1 = new Staffs(null, "santos", "sandro", "teste3@teste3.com", "12345-6789", true, true);
+		Staffs stf1 = new Staffs(null, "Sandro", "Fernando", "teste3@teste3.com", "12345-6789", true, true);
+		staffs_repository.saveAll(Arrays.asList(stf1));
 
 		Stores st1 = new Stores(null, "Loja1", Arrays.asList(stk1), Arrays.asList(p1), Arrays.asList(stf1));
+		stores_repository.saveAll(Arrays.asList(st1));
 
 		Customers ct1 = new Customers("Sandro", "Santos", "1234-5678", "teste@teste.com", "Rua teste", "São Paulo",
 				"SP", "12345-678");
+		customer_repository.saveAll(Arrays.asList(ct1));
 
 		Orders od1 = new Orders(null, ct1, OrderStatus.Awaiting_shipment, Instant.parse("2022-05-13T19:03:20Z"),
 				Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"), stf1, st1);
+		order_repository.saveAll(Arrays.asList(od1));
 
 		OrderItems oi1 = new OrderItems(od1, p1, 1, 100.00, 0.10);
 
-		categories_repository.saveAll(Arrays.asList(cat1));
-		brands_repository.saveAll(Arrays.asList(bd1));
-		product_repository.saveAll(Arrays.asList(p1));
-		stocks_repository.saveAll(Arrays.asList(stk1));
-		staffs_repository.saveAll(Arrays.asList(stf1));
-		stores_repository.saveAll(Arrays.asList(st1));
-		customer_repository.saveAll(Arrays.asList(ct1));
-		order_repository.saveAll(Arrays.asList(od1));
 		order_item_repository.saveAll(Arrays.asList(oi1));
 	}
 

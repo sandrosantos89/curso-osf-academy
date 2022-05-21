@@ -2,8 +2,7 @@ package com.osf.academyosf.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.osf.academyosf.entities.enums.OrderStatus;
@@ -52,8 +52,8 @@ public class Orders implements Serializable {
 	private Stores stores;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "id.order")
-	private Set<OrderItems> items = new HashSet<>();
+	@OneToMany(mappedBy = "orders")
+	private List<OrderItems> list_items;
 
 	public Orders() {
 	}
@@ -136,13 +136,13 @@ public class Orders implements Serializable {
 		this.stores = stores;
 	}
 
-	public Set<OrderItems> getItems() {
-		return items;
+	public List<OrderItems> getList_items() {
+		return list_items;
 	}
 
 	public Double getTotal() {
 		double sum = 0;
-		for (OrderItems x : items) {
+		for (OrderItems x : list_items) {
 			sum += x.getQuantity();
 		}
 		return sum;
