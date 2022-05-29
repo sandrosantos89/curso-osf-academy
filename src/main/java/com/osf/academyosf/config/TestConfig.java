@@ -86,7 +86,14 @@ public class TestConfig implements CommandLineRunner {
 
 		Orders od1 = new Orders(null, ct1, OrderStatus.Awaiting_shipment, Instant.parse("2022-05-13T19:03:20Z"),
 				Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"), stf1, st1);
-		order_repository.saveAll(Arrays.asList(od1));
+		Orders od2 = new Orders(null, ct1, OrderStatus.In_transit, Instant.parse("2022-05-13T19:03:20Z"),
+				Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"), stf1, st1);
+		Orders od3 = new Orders(null, ct1, OrderStatus.Delivered, Instant.parse("2022-05-13T19:03:20Z"),
+				Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"), stf1, st1);
+		Orders od4 = new Orders(null, ct1, OrderStatus.Canceled, Instant.parse("2022-05-13T19:03:20Z"),
+				Instant.parse("2022-05-13T19:03:20Z"), Instant.parse("2022-05-13T19:03:20Z"), stf1, st1);
+
+		order_repository.saveAll(Arrays.asList(od1, od2, od3, od4));
 
 		OrderItems oi1 = new OrderItems(od1, p1, 1, 100.00, 0.10);
 

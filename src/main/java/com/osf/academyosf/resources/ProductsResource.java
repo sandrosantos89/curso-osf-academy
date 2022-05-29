@@ -22,17 +22,12 @@ public class ProductsResource {
 	@Autowired
 	private ProductsRepository products_repository;
 
-	@GetMapping("/products") 
+	@GetMapping("/products")
 	public List<Products> lista_products() {
 		return products_repository.findAll();
 	}
-	
-	@GetMapping("/products/count") 
-	public long lista_count_products() {
-		return products_repository.count();
-	}
 
-	@GetMapping("/product/{id}") 
+	@GetMapping("/product/{id}")
 	public Products lista_products_one(@PathVariable(value = "id") int id) {
 		return products_repository.findById(id);
 	}
@@ -42,18 +37,19 @@ public class ProductsResource {
 		return products_repository.save(product);
 	}
 
-	@DeleteMapping("/product") 
+	@DeleteMapping("/product")
 	public void delete_product(@RequestBody Products product) {
 		products_repository.delete(product);
 	}
 
 	@DeleteMapping("/product/{id}")
-	public Products delete_product_one(@PathVariable(value = "id") int id ){
+	public Products delete_product_one(@PathVariable(value = "id") int id) {
 		return products_repository.deleteById(id);
 	}
 
-	@PutMapping("/product") 
+	@PutMapping("/product")
 	public Products update_product(@RequestBody Products product) {
 		return products_repository.save(product);
 	}
+
 }

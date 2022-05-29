@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_brands")
 public class Brands implements Serializable {
@@ -23,6 +25,7 @@ public class Brands implements Serializable {
 	private String brand_name;
 
 	@OneToMany(mappedBy = "brands")
+	@JsonIgnore
 	private List<Products> products_list;
 
 	public Brands() {

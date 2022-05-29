@@ -1,6 +1,5 @@
 package com.osf.academyosf.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -29,7 +28,8 @@ public class Stores extends Adress {
 	private List<Products> product_list;
 
 	@OneToMany(mappedBy = "stores")
-	private List<Orders> orders_list = new ArrayList<>();
+	@JsonIgnore
+	private List<Orders> orders_list;
 
 	@OneToMany
 	@JsonIgnore

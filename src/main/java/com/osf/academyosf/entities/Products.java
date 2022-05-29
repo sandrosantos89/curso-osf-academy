@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_products")
 public class Products implements Serializable {
@@ -35,9 +37,11 @@ public class Products implements Serializable {
 	private Categories categories;
 
 	@OneToMany(mappedBy = "products")
+	@JsonIgnore
 	private List<Stocks> stocks_list;
 
 	@OneToMany(mappedBy = "products")
+	@JsonIgnore
 	private List<OrderItems> order_items_list;
 
 	public Products() {

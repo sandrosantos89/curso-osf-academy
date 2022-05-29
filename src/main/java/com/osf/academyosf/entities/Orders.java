@@ -51,8 +51,8 @@ public class Orders implements Serializable {
 	@JoinTable(name = "tb_orders_stores", joinColumns = @JoinColumn(name = "orders_store_id_fkey"), inverseJoinColumns = @JoinColumn(name = "stores_id"))
 	private Stores stores;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "orders")
+	@JsonIgnore
 	private List<OrderItems> list_items;
 
 	public Orders() {
