@@ -3,6 +3,8 @@ package com.osf.academyosf.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,5 +52,10 @@ public class StoresResource {
 	@PutMapping("/stores") 
 	public Stores update_stores(@RequestBody Stores stores) {
 		return stores_repository.save(stores);
+	}
+	
+	@GetMapping("/stores/page")
+	public Page<Stores> lista_products(Pageable pageable) {
+		return stores_repository.findAll(pageable);
 	}
 }

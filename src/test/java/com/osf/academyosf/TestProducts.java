@@ -24,7 +24,6 @@ public class TestProducts {
 	public void listProducts() {
 		List<Products> list_prod = product_repository.findAll();
 		assertThat(list_prod).size().isGreaterThan(0);
-
 	}
 
 
