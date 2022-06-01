@@ -7,6 +7,5 @@ import com.osf.academyosf.entities.OrderItems;
 public interface OrderItemsRepository extends JpaRepository<OrderItems, Integer> {
 
 	OrderItems findById(int id);
-
 	OrderItems deleteById(int id);
 }

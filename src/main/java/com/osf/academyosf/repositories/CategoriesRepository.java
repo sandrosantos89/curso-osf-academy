@@ -7,6 +7,5 @@ import com.osf.academyosf.entities.Categories;
 public interface CategoriesRepository extends JpaRepository<Categories, Integer> {
 
 	Categories findById(int id);
-
 	Categories deleteById(int id);
 }

@@ -15,7 +15,7 @@ public interface CustomersRepository extends JpaRepository<Customers, Integer> {
 	Customers deleteById(int id);
 	Page<Customers> findAll(Pageable var1);
 	
-	@Query(value = "SELECT * FROM Tb_customers c WHERE c.first_name LIKE %:first_name%", 
-			countQuery = "SELECT count(first_name) FROM Tb_products c WHERE c.first_name LIKE %:first_name% ORDER BY DESC", nativeQuery = true)
+	@Query(value = "SELECT * FROM Customers c WHERE c.first_name =?1", 
+			countQuery = "SELECT count(first_name) FROM Products c WHERE c.first_name = ?1")
 	public List<Customers> findByOrderByCustomers(String first_name);
 }

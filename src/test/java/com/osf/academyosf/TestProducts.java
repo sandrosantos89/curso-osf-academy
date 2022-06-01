@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,14 +18,20 @@ import com.osf.academyosf.repositories.ProductsRepository;
 public class TestProducts {
 
 	@Autowired
-	ProductsRepository product_repository;
-	
-	@org.junit.jupiter.api.Test
-	
+	private ProductsRepository product_repository;
+
+	@Test
 	public void listProducts() {
-		List<Products> list_prod = product_repository.findAll();
-		assertThat(list_prod).size().isGreaterThan(0);
+		List<Products> list_prod = product_repository.findCountProducts_name("tennis");
+		assertThat(list_prod.size()).isEqualTo(1);
 	}
-
-
+//
+//	
+//	@SuppressWarnings("unlikely-arg-type")
+//	@org.junit.jupiter.api.Test
+//	public void productContainsCategories() {
+//		Products pd = new Products();
+//		List<Products> list_prod = product_repository.();
+//		assertThat(list_prod.contains(pd.getCategories()));
+//	}
 }
