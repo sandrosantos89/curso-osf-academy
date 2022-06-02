@@ -13,12 +13,14 @@ import com.osf.academyosf.entities.Orders;
 public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 
 	Orders findById(int id);
+
 	Orders deleteById(int id);
+
 	Page<Orders> findAll(Pageable var1);
 
-	@Query(value = "SELECT oc FROM Orders oc WHERE oc.customers =?1") 
-				public List<Orders> findByOrderByOrdes(String customers);
-	
-	@Query(value = "SELECT od FROM Orders od WHERE od.order_date BETWEEN ?1 AND ?2)")
-	public List<Orders> findByInstantBetween(Instant data_inicial, Instant data_final);;
+	@Query(value = "SELECT order_id FROM Orders oc WHERE oc.customers =?1")
+	List<Orders> findByOrderByOrdes(int customers);
+
+	@Query(value = "SELECT order_date FROM Orders od WHERE od.order_date BETWEEN ?1 AND ?2")
+	List<Orders> findByInstantBetween(Instant data_inicial, Instant data_final);;
 }

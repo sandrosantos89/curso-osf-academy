@@ -25,13 +25,13 @@ public class TestProducts {
 		List<Products> list_prod = product_repository.findCountProducts_name("tennis");
 		assertThat(list_prod.size()).isEqualTo(1);
 	}
-//
-//	
-//	@SuppressWarnings("unlikely-arg-type")
-//	@org.junit.jupiter.api.Test
-//	public void productContainsCategories() {
-//		Products pd = new Products();
-//		List<Products> list_prod = product_repository.();
-//		assertThat(list_prod.contains(pd.getCategories()));
-//	}
+
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@org.junit.jupiter.api.Test
+	public void productContainsCategories() {
+		Products pd = new Products();
+		List<Products> list_prod = product_repository.findCountProducts_name("tennis");
+		assertThat(list_prod.contains(pd.getCategories()));
+	}
 }

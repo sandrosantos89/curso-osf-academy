@@ -15,6 +15,6 @@ public interface ProductsRepository extends JpaRepository<Products, Integer> {
 	Products deleteById(int id);
 	Page<Products> findAll(Pageable pageable);
 
-	@Query("SELECT COUNT (p) FROM Products p WHERE p.product_name = ?1")
+	@Query("SELECT product_name, COUNT (p) FROM Products")
 	List<Products> findCountProducts_name(String product_name);
 }

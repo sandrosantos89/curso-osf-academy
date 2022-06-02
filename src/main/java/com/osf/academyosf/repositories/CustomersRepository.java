@@ -12,10 +12,12 @@ import com.osf.academyosf.entities.Customers;
 public interface CustomersRepository extends JpaRepository<Customers, Integer> {
 
 	Customers findById(int id);
+
 	Customers deleteById(int id);
+
 	Page<Customers> findAll(Pageable var1);
-	
-	@Query(value = "SELECT * FROM Customers c WHERE c.first_name =?1", 
-			countQuery = "SELECT count(first_name) FROM Products c WHERE c.first_name = ?1")
+
+	@Query("SELECT first_name, COUNT(c) FROM Customers")
 	public List<Customers> findByOrderByCustomers(String first_name);
+
 }
